@@ -3,7 +3,6 @@ title: JMM
 date: 2018-02-28 17:49:28
 tags:
 categories:
-categories:
 - Java Learning
 - Concurrency
 - 2.JMM
