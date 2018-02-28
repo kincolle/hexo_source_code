@@ -40,4 +40,5 @@ Livelock is situation that all threads want to release resources so that others 
 Because of critical section, multi-thread concurrency must be controlled. We can get some concurrency level like:blocking, Starvation-Free, Obstruction-Free, Lock-Free and Wait-Free
 
 ###1.6.1 Blocking
+a
 
