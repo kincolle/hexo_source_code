@@ -40,5 +40,20 @@ Livelock is situation that all threads want to release resources so that others 
 Because of critical section, multi-thread concurrency must be controlled. We can get some concurrency level like:blocking, Starvation-Free, Obstruction-Free, Lock-Free and Wait-Free
 
 ###1.6.1 Blocking
-a
+A thread is blocking means before other threads release resource, the thread will not operate. When we use synchronized, or ReenTrantLock, the thread will be blocking.
+No matter synchronized or ReenTrantLock, it will try to get a lock of critical section before it starts to operate. If it fails to get a lock, it will hang on until get all the resources it needs.
+
+###1.6.2 Starvation-Free
+It threads have priority, then it will prefer a thread with high priority to star first. That is to say, for obtaining one resource, it's unfair. For unfair lock, system always allow threads with high priority go ahead. That will lead threads with low priority may never operate. This is called Starvation-Free.
+
+### 1.6.3 Obstruction-Free
+Obstruction-Free is a kind of blocking invocation. They will not be hang on because of critical section. Will more than two threads rewrite data of critical section, if data became dirty, it will call back to make sure the pure data.
+
+### 1.6.4 Lock-Free
+At Lock-Free situation, all threads can access critical section and it can make sure one thread will operate sucessfully in finite steps.
+
+### 1.6.5 Wait-Free
+Wait-Free can let all threads will operate successfully in finite steps. In this way, Starvation-Free will never happen.
+
+
 
