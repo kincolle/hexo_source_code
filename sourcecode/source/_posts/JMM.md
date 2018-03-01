@@ -39,7 +39,6 @@ In the picture, No.1 is compiler optimization reorder, No.2 and No.3 is CPU reor
 
 ## 4 CPU Reordering and Memory Barrier
 Modern CPU use buffer to temporarily store data which will be store in main memory. Every buffer is just visible to its CPU。 That will affect the order of instructions to the memory: 
-
 <table>
   <tr>
     <td width=50%> Processor A </td>
@@ -48,6 +47,7 @@ Modern CPU use buffer to temporarily store data which will be store in main memo
   <tr>
     <td width=50%> a = 1;//A1<br>x = b;//A2  </td>
     <td width=50%> b = 2;//A1<br>y = a;//A2 </td>
+  </tr>
   <tr>
     <td width=100% colspan="2">  initial status: a=b=0<br> executed result: x=y=0 </td>
   </tr>
@@ -55,4 +55,85 @@ Modern CPU use buffer to temporarily store data which will be store in main memo
 
 Persuming CPU A and CPU B access memory in the code order, but the final result is x=y=0. The detail reason is showed in the following picture.
 
+![](JMM/reorderinstance.jpg)
 
+Here both CPU A and CPU B can write shared variable into their buffer ( A1 And A2 ), then from the buffer to ( A2 and B2) , finally copy the data which is already writen in buffer to main memory ( A3 and B3). When execute in this order, the result is x=y=0.<br>
+For main memory, only when CPU A finish executing A3 the A1 is real finished. So the code is A1 -> A2, but the real executing order is A2 -> A1.<br>
+The key point is that buffer is only visible to its CPU, this may lead some problems. Because modern CPU using buffer, reordering offen happens.<br>
+To make sure the visibility, java compiler will insert some memory barriers into instructions to forbid some reordering. There are four types of memory barriers showed at the following table:
+<table>
+  <tr>
+	<td width=30%> LoadLoad Barriers </td>
+    <td width=30%> Load1; LoadLoad; Load2	 </td>
+    <td width=40%> Make sure Load 1 must be before Load 2 and other following loadings  </td>
+  </tr>
+  <tr>
+    <td width=30%> StoreStore Barriers </td>
+    <td width=30%> Store1; StoreStore; Store2 </td>
+    <td width=40%> Make sure Store 1 must be visible to other CPU and before Store 2 and other following Storing </td>
+  </tr>
+  <tr>
+    <td width=30%> LoadStore Barriers </td>
+    <td width=30%> Load1; LoadStore; Store2	</td>
+    <td width=40%> Make sure Load 1 must be bofore Store 2 and other following instructions </td>
+  </tr>
+  <tr>
+    <td width=30%> StoreLoad Barriers </td>
+    <td width=30%> Store1; StoreLoad; Load2 </td>
+    <td width=40%> Make sure all the memory instructions finished before instructions after Barriers</td>
+  </tr>
+</table>   
+
+## 5 Happens-Before Rule
+I have already explained what is reordering, although java will do reordering, there are some rules needs to follow. The following will show you the rules:
+<ul>
+<li>in one thread the instructions must be serial</li>
+<li>volatile variable must be writen before read to make sure the visibility</li>
+<li>unlock must before lock</li>
+<li>A->B, B->C, then A->C </li>
+<li>start() is the first execution for all threads</li>
+<li>execution of all threads before Thread.join()</li>
+<li>interrupt() of one thread must before the code of the interrupted thread</li>
+<li>construction of one object must before finalize()</li>
+</ul>
+<br>
+For example, reordering must not change the meaning of serial meaning of codes, like
+<br>
+
+<pre>
+<code>
+a=1;
+b=a+1;
+</code>
+</pre>
+
+Because the second code is depending on first code, so if change the order of the two codes the result of execution will be changed.
+
+## 6 Data dependency
+
+If there are 2 execution and more one is writing, then the 2 execution has dependency. There are 3 types of denpendecny:
+
+<table>
+  <tr>
+	<td width=30%> Name </td>
+    <td width=30%> example </td>
+    <td width=40%> description </td>
+  </tr>
+  <tr>
+    <td width=30%> write then read </td>
+    <td width=30%> a=1; b=a; </td>
+    <td width=40%> write one variable then read it </td>
+  </tr>
+  <tr>
+    <td width=30%> write then write </td>
+    <td width=30%> a=1; a=2; </td>
+    <td width=40%> write one variable then write it again </td>
+  </tr>
+<tr>
+    <td width=30%> read then write </td>
+    <td width=30%> a=b; b=1; </td>
+    <td width=40%> read one variable then write it </td>
+  </tr>
+</table>   
+
+When compiler do reordering, there rules must be followed.
