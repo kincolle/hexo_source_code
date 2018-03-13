@@ -1,25 +1,25 @@
 ---
-title: Map
+title: HashMap And HashSet
 date: 2018-03-06 01:01:50
 tags:
 categories:
 - Java Learning
 - Collection
-- 4.Map
+- HashMap And HashSet
 ---
 
 # Map
 Map uses key-value type. Keys of Map can not be duplicated and each key can lead to a value.
 
-## 2 HashMap
-### 2.1 Introduction of HashMap
+##  HashMap
+### 1.1 Introduction of HashMap
 HashMap is based on Hash Table and implements Map interface. HashMap allows null key and null value. But, it does not make sure order especially it can not make sure order never be changed.<br>
 Persuming hash function puts elements equably into each bucket. If performance of iterator is important for you, do not set the initial capacity too high (or the load factor too low). You may do not understand why, I will explain it latter.<br>
 By the way, HashMap is not thread safe.
 
-### 2.2 Data Structure
+### 1.2 Data Structure
 In java language, there are two basic data structure: array and pointer and HashMap use both of them. In fact, HashMap is hash linked list sctucture which means is combined with array and linked list. 
-![](Collection-Map/HashMapArrayLinkedList.jpg)
+![](Collection-HashMapAndHashSet/HashMapArrayLinkedList.jpg)
 From the picture we can see that the basic structure is array and every element of the array is a linked list. So, when initiate a new HashMap, it will create a new array. <br>
 Here is the source code:
 
@@ -58,7 +58,7 @@ In the source code, there is a code like "table = new Entry[capacity];". That is
 
 Entry is a static class which contains key-value. Also, it contains a pointer of Entry type named next. So we can get a conclusion that every Entry has a key value and it points to the next element.
 
-## 2.3 Storage
+### 1.3 Storage
 First of all, let's see the source code:
 
 	/**
@@ -158,7 +158,7 @@ We can get position bt using hash code instead of iteration. That's is high effi
     while (capacity < initialCapacity)  
         capacity <<= 1;
 
-### 2.4 Get
+### 1.4 Get
 Here is source code about getting element:
 
 	/**
@@ -200,21 +200,21 @@ Here is source code about getting element:
 
 As we already have knowledge of storage, it's easy to understand the getting. To get a element, firstly computing hashcode of a key and get a value of array then use key to get element we want.
 
-## 2.5 Summary Of HashMap
+### 1.5 Summary Of HashMap
 We can treat key-value as a Entry instance. The Entry[] willl store all key-value. When we want to store one, it will dicide its position at array by using hash code, and use equals() to determine the position at the linked list. When we want to get a Entry, we also  using hash code to find its position at array and use equals() to get the Entry we want.
 
-## 2.6 Resize of HashMap
+### 1.6 Resize of HashMap
 When number of elements of one HashMap gets bigger, the ratio of getting confliction is getting higher because the length of array is setted. To increase the performance of the getting, we need to increase the size of array. After size of array has been increased, all the element of map will be relocated and that will do a lot of computing.<br>
 So, when will the system do resize? When number of element is over size(array)*loadFactor, it will do resize. The default loadFactor is 0.75 and the default size of array is 16. Then, when number of element is over 16*0.75=12, it will increase the size of array to 32. So, forecasting the element number will be helpful.
 
-## 2.7 Parameter of Hashmap
+### 1.7 Parameter of Hashmap
 There are three kinds of construction:
 
 * HashMap()：build a HashMap with Capacity of 16 and loadFactor of 0.75
 * HashMap(int initialCapacity)：build a HashMap with Capacity of initialCapacity and loadFactor of 0.75
 * HashMap(int initialCapacity, float loadFactor)： build a HashMap with Capacity of initialCapacity and loadFactor of loadFactor
 
-## 2.8 Fail-Fast Strategy
+### 1.8 Fail-Fast Strategy
 We know that HashMap is not thread safe. If some other threads change the map, ConcurrentModificationException will be thrown out. That is Fail-Fast strategy. <br>
 It is implemented by using modCount. The modCount means the times of changing. Here is the source code:
 
@@ -227,3 +227,80 @@ It is implemented by using modCount. The modCount means the times of changing. H
 	    }
 	}
 When iterate, will judge if modCount equals expectedModCount.
+
+# HashSet
+## 1 Introduction of HashSet
+HashSet is implemented by using HashMap. So, if you know HashMao very well, you can understand HashSet quickly.<br>
+Here let's see the construction of HashSet:
+
+    private transient HashMap<E,Object> map;
+
+    // Dummy value to associate with an Object in the backing Map
+    private static final Object PRESENT = new Object();
+
+    /**
+     * Constructs a new, empty set; the backing <tt>HashMap</tt> instance has
+     * default initial capacity (16) and load factor (0.75).
+     */
+    public HashSet() {
+        map = new HashMap<>();
+    }
+
+We can see that it is constructed by using HashMap.
+
+## Implementation of HashSet
+For HashSet, since it uses HashMap, the element is stored in HashMap．So most function of HashSet is the same to HashMap. 
+##### construction
+	 /**
+	 * defaulf constructor and will construct a empty HashSet
+	 *
+	 * In fact it will construct a empty HashMap with Capacity of 16 and loadFactor of 0.75
+	 */
+	public HashSet() {
+	    map = new HashMap<E,Object>();
+	}
+	
+	/**
+	 * Create a new HashSet with all elements of the collection
+	 *
+	 * it will construct a empty HashMap with Capacity of 16 and loadFactor of 0.75
+	 * @param element of c will be stored in this HashSet
+	 */
+	public HashSet(Collection<? extends E> c) {
+	    map = new HashMap<E,Object>(Math.max((int) (c.size()/.75f) + 1, 16));
+	    addAll(c);
+	}
+	
+	/**
+	 * create a new empty HashSet with Capacity of initialCapacity and loadFactor of loadFactor
+	 *
+	 * @param initialCapacity 
+	 * @param loadFactor 
+	 */
+	public HashSet(int initialCapacity, float loadFactor) {
+	    map = new HashMap<E,Object>(initialCapacity, loadFactor);
+	}
+	
+	/**
+	 * build a new empty HashSet with Capacity of initialCapacity and loadFactor of 0.75
+	 *
+	 * @param initialCapacity 
+	 */
+	public HashSet(int initialCapacity) {
+	    map = new HashMap<E,Object>(initialCapacity);
+	}
+	
+##### add
+Here is the source code:
+
+	/**
+	
+	 * @param e the e will be put into the set
+	 * @return if there is no e in this set, then returen ture
+	 */
+	public boolean add(E e) {
+	    return map.put(e, PRESENT)==null;
+	}
+
+If the set is not containing e, then it will be put into the set. <br>
+In HashMap, will put key-value, the key will never be duplicated. That's why the elements of set will never be duplicated.
