@@ -180,12 +180,12 @@ These will be used in the removing cuntion. Here is the source code:
 	static <K,V> TreeMap.Entry<K,V> successor(Entry<K,V> t) {
 	    if (t == null)
 	        return null;
-	    else if (t.right != null) {// 1. t的右子树不空，则t的后继是其右子树中最小的那个元素
+	    else if (t.right != null) {// 1. if right tree of t is not null, then it is the smallest element of this right tree
 	        Entry<K,V> p = t.right;
 	        while (p.left != null)
 	            p = p.left;
 	        return p;
-	    } else {// 2. t的右孩子为空，则t的后继是其第一个向左走的祖先
+	    } else {// 2. if right child of t is null, then it is first ancient who go left
 	        Entry<K,V> p = t.parent;
 	        Entry<K,V> ch = t;
 	        while (p != null && ch == p.right) {
@@ -317,7 +317,7 @@ TreeSet is based on TreeMap, so if you understand TreeMap, you already understan
 	    // Dummy value to associate with an Object in the backing Map
 	    private static final Object PRESENT = new Object();
 	    public TreeSet() {
-	        this.m = new TreeMap<E,Object>();// TreeSet里面有一个TreeMap
+	        this.m = new TreeMap<E,Object>();// There is a TreeMap in TreeSet
 	    }
 	    ......
 	    public boolean add(E e) {
