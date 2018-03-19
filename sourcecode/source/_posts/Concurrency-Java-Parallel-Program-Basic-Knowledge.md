@@ -1,13 +1,13 @@
 ---
-title: Java Parallel Program Basic Knowledge
+title: Java Parallel Program Basic Knowledge (1)
 date: 2018-03-02 07:21:39
 tags:
 categories:
 - Java Learning
 - Concurrency
-- 3.Java Parallel Program Basic Knowledge
+- 3.Java Parallel Program Basic Knowledge (1)
 ---
-#Java Parallel Program Basic Knowledge
+
 ## 1 Something About Thread
 Before I introduce thread, I'd like to introduce its mother process. At earlier time, Process is the fundamental executin unit. At the modern thread design, process is the docker of thread. Different Processed share no main memory but different threads of one process shared main memory.<br>
 The following picture will show yout the life time of thread.
@@ -139,3 +139,100 @@ If you hope thread1 will quit when interrupt, the do like the following code.
     }
 
 
+## 2.5 wait and notify
+For cooperation of threads, JDK provides 2 important interface wait() and notify(). These 2 functions are not in Thread class but in Obeject class. That means any object cab use them.<br>
+The signature is like the following:
+
+	public final void wait() throws InterrruptedException
+	public final native void notify()
+
+When a instance invokes wait(), the current thread will wait on this instance. What does that means? For example, thread A invokes obj.wait(), then thread A will stop operating and tuen status into WAIT. So, when will this end? Until another thread invokes obj.wait(). So, this obj instance is a way to communicate between threads.<br>
+So, how does wait() and notify() work? The following picture will show you this.
+![](Concurrency-Java-Parallel-Program-Basic-Knowledge/1.png) 
+If a thread use object.wait(), then it will go into wait queue of the object instance. In this wait queue, numbers of threads may in it, because numbers of threads are wait for one object. When object.notify() is invoked, it will choose one randomly to notify. Here, the choosing is not fair.<br>
+Besides notify(), there is another method named notifyall() in object instance. The difference is that it will nofity all threads.<br>
+One point needed to be emphasized is that object.wait() can not be invoked at any time. It must be in synchronized block, no matter wait() or nofity(), it needs a monitor of a object. Here is a example of it:
+
+	public class WaitAndNofity {
+	    final static Object object = new Object();
+	    public static class T1 extends Thread{
+	        public void run(){
+	            synchronized (object){
+	                System.out.println(System.currentTimeMillis()+":T1 start.");
+	                try {
+	                    System.out.println(System.currentTimeMillis()+"T1 wait for object.");
+	                    object.wait();
+	                }catch (InterruptedException e){
+	                    e.printStackTrace();
+	                }
+	                System.out.println(System.currentTimeMillis()+"T1 end.");
+	            }
+	        }
+	    }
+	    public static class T2 extends Thread{
+	        public void run(){
+	            synchronized (object){
+	                System.out.println(System.currentTimeMillis() +"T2 start.");
+	                object.notify();
+	                System.out.println(System.currentTimeMillis()+"T2 end.");
+	                try {
+	                    Thread.sleep(2000);
+	                }catch (InterruptedException e){
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    }
+	
+	    public static void main(String[] args) {
+	        Thread t1 = new T1();
+	        Thread t2 = new T2();
+	        t1.start();
+	        t2.start();
+	    }
+	}
+
+Then, run the code and the result will be:
+
+	1521272046986:T1 start.
+	1521272046986T1 wait for object.
+	1521272046986T2 start.
+	1521272046986T2 end.
+	1521272048987T1 end.
+
+## 2.6 join and yield
+At the most situation, input of one thread may depends on other threads. At this time, you can use join().Here are 2 join functinos:
+
+	public final void join() throws InterruptedException
+	public final synchronized void join(long millis) throws InterruptedException    
+
+THe first one means wait forever until the targer thread has finished. The second one provides a waiting time, and if over it then go on. Here is a join() intance:
+
+	public class JoinMain {
+	    public volatile static int i = 0;
+	    public static class addThread extends Thread{
+	        @Override
+	        public void run() {
+	            for(i=0;i<10000000;i++);
+	        }
+	    }
+	
+	    public static void main(String[] args) throws InterruptedException {
+	        addThread addThread = new addThread();
+	        addThread.start();
+	        addThread.join();
+	        System.out.println(i);
+	    }
+	}
+
+In the main function, if there is no join(), the i may less than 10000000. Since there is a join(), so the "System.out.println(i);" must wait for the addThread. That is the reason the outcome will be 10000000.<br>
+About join, I want to say that in fact it invokes wait() on the current object.Here is a part of the source code in JDK:
+
+	while(isAlinve()){
+		wait(0)
+	}
+
+We can see that it let the invoking thread wait on current object. When the current thread finished, waited thread will invoke nofityall() to notify all waited thread to go on.
+
+## 2.7 volatile and JMM
+I have described JMM bebore and all JMM is about atomic thing. volatile is for that. So if you want to know something about vaolatile, just see my article about JMM.
