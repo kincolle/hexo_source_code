@@ -1,5 +1,5 @@
 ---
-title: Concurrency-Java-Parallel-Program-Basic-Knowledge(2)
+title: Java-Parallel-Program-Basic-Knowledge(2)
 date: 2018-03-18 13:23:53
 tags:
 categories:

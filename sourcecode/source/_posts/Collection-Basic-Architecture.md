@@ -1,5 +1,5 @@
 ---
-title: Collection
+title: Collection Basic Architecture
 date: 2018-03-05 11:12:44
 tags:
 categories:

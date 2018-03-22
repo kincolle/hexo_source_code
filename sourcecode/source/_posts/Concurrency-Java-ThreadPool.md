@@ -1,11 +1,11 @@
 ---
-title: Concurrency-Java-ThreadPool
+title: ThreadPool
 date: 2018-03-18 21:46:29
 tags:
 categories:
 - Java Learning
 - Concurrency
-- 6.Concurrency-Java-ThreadPool
+- 6.ThreadPool
 ---
 
 ## 1. Reason Of Using ThreadPool

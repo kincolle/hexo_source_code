@@ -1,11 +1,11 @@
 ---
-title: Concurrency-Java-SyncControl
+title: SyncControl
 date: 2018-03-18 18:33:26
 tags:
 categories:
 - Java Learning
 - Concurrency
-- 5.Concurrency-Java-SyncControl
+- 5.SyncControl
 ---
 
 ## 1 ReenterLock
