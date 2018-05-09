@@ -5,7 +5,7 @@ tags:
 categories:
 - Java Learning
 - Concurrency
-- 7.ThreadLocal
+- ThreadLocal
 ---
 ## 1 Introduction
 The ThreadLocal is not a thread but a variable only can be used by current thread. So, it is a thread level variable.<br>

@@ -5,7 +5,7 @@ tags:
 categories:
 - Java Learning
 - Concurrency
-- 2.JMM
+- JMM
 ---
 # JMM
 ## 1 Abstraction of Java Memory Model

@@ -5,7 +5,7 @@ tags:
 categories:
 - Java Learning
 - Concurrency
-- 6.ThreadPool
+- ThreadPool
 ---
 
 ## 1. Reason Of Using ThreadPool

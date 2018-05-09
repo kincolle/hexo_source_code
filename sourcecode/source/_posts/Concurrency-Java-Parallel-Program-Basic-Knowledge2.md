@@ -5,7 +5,7 @@ tags:
 categories:
 - Java Learning
 - Concurrency
-- 4.Java Parallel Program Basic Knowledge (2)
+- Java Parallel Program Basic Knowledge (2)
 ---
 
 ## 1 Thread Group

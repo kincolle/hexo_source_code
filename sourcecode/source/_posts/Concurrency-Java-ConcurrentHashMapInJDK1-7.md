@@ -5,7 +5,7 @@ tags:
 categories:
 - Java Learning
 - Concurrency
-- 10.Concurrent HashMap In JDK 1.7
+- Concurrent HashMap In JDK 1.7
 ---
 ## 1. Introduction Of Concurrent HashMap In JDK 1.7
 ConcurrentHashMap is almost like HashMap and it supports concurrent operations, so it is more complex. A whole ConcurrentHashMap is comprised of Segments, that means ConcurrentHashMap is a Segment array and it extends ReentrantLock to do lock. So if every Segment is thread safe, then the whole ConcurrentHashMap is thread safe. 

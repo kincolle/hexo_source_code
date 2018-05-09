@@ -5,7 +5,7 @@ tags:
 categories:
 - Java Learning
 - Concurrency
-- 5.SyncControl
+- SyncControl
 ---
 
 ## 1 ReenterLock

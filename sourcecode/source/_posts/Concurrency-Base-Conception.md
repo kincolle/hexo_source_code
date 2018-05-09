@@ -5,7 +5,7 @@ tags:
 categories:
 - Java Learning
 - Concurrency
-- 1.Some Base Conception
+- Some Base Conception
 ---
 
 ## 1.1 Synchronous and Asynchronous

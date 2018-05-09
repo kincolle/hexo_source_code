@@ -5,7 +5,7 @@ tags:
 categories:
 - Java Learning
 - Concurrency
-- 8.CAS
+- CAS
 ---
 ## 1 Introduction of Pessimistic Lock and Optimistic Lock
 First of all, I want to introduce Pessimistic Lock and Optimistic Lock:
