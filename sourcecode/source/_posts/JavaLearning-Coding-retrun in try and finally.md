@@ -14,8 +14,7 @@ The anwser is code in finally{} will be operated before return unless System.exi
 
 ## example
 
-public class Test
-
+	public class Test
 	{
 	       public static void main(String[] args)
 	       {
