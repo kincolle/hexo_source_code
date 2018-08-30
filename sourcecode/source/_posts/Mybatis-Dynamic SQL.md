@@ -145,12 +145,12 @@ The trim is a format label, it can do function of set or where.
 ## foreach
 If in user table we can 3 users that 1, 2 and 3. We can use SQL like "select * from user where id=1 or id=2 or id=3" or "select * from user where id in (1,2,3)".
 
-1. build a UserVo class which has "List<Integer> ids"  
+(1)  build a UserVo class which has "List<Integer> ids"  
 
 	package kincolle.vo;
-	 
+	
 	import java.util.List;
-	 
+	
 	public class UserVo {
 
 	    private List<Integer> ids;
@@ -165,7 +165,7 @@ If in user table we can 3 users that 1, 2 and 3. We can use SQL like "select * f
 	}　
 
 
-2. use foreach
+(2) use foreach
 	
 	<select id="selectUserByListId" parameterType="com.ys.vo.UserVo" resultType="kincolle.User">
 	    select * from user
