@@ -85,7 +85,7 @@ BaseExecutor class：
 
 Like SimpleExecutor it does not extend Executor class but through BaseExecutor. So when invoke query method, it invokes query of BaseExecutor indeed.
 
-SimpleExecutor类：
+SimpleExecutor class:
 
 	public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
 	     Statement stmt = null;
