@@ -95,7 +95,6 @@ Through this source codel, we know we set config of mybatis into SqlSessionFacto
 
 
 Through these source code we know in conifg file:
-通过以上源码，我们就能看出，在mybatis的配置文件中：
 
 1. configuration is the root node.
 
