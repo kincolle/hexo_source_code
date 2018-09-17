@@ -15,25 +15,25 @@ In spring we use TaskExecutor to do mutilthread tasks. The ThreadPoolTaskExecuto
 
 #### Java config
 
-@Configuration
-@ComponentScan("kincolle.TaskExecutor")
-@EnableAsync 
-public class TaskExecutorConfig implements AsyncConfigurer{
-    @Override
-    public Executor getAsyncExecutor() {
-        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setCorePoolSize(5);
-        taskExecutor.setMaxPoolSize(10);
-        taskExecutor.setQueueCapacity(25);
-        taskExecutor.initialize();
-        return taskExecutor;
-    }
-
-    @Override
-    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return null;
-    }
-}
+	@Configuration
+	@ComponentScan("kincolle.TaskExecutor")
+	@EnableAsync 
+	public class TaskExecutorConfig implements AsyncConfigurer{
+	    @Override
+	    public Executor getAsyncExecutor() {
+	        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+	        taskExecutor.setCorePoolSize(5);
+	        taskExecutor.setMaxPoolSize(10);
+	        taskExecutor.setQueueCapacity(25);
+	        taskExecutor.initialize();
+	        return taskExecutor;
+	    }
+	
+	    @Override
+	    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+	        return null;
+	    }
+	}
 
 #### Execute class
 
