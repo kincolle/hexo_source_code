@@ -1,11 +1,12 @@
 ---
-title: The IoC Container
-date: 2018-07-27 23:21:28
+title: Circular Reference
+date: 2018-08-16 19:47:32
 tags:
 categories:
 - Spring
 - SpringFramework
-- The IoC Container
+- SourceCode
+- Circular Reference
 ---
 ## Introduction
 
