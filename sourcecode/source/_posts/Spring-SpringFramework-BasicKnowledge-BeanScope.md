@@ -5,6 +5,7 @@ tags:
 categories:
 - Spring
 - SpringFramework
+- BasicKnowledge
 - Bean Scope
 ---
 ## Introduction

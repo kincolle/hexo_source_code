@@ -1,11 +1,12 @@
 ---
-title: @Component
+title: Component
 date: 2018-08-05 09:23:03
 tags:
 categories:
 - Spring
+- SpringFramework
 - Annotation
-- @Component
+- Component
 ---
 ## Type
 A class with the @component annotation will be created as a bean into a container. And there are other 3 types:

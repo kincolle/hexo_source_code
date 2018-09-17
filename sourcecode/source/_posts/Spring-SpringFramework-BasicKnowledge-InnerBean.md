@@ -5,6 +5,7 @@ tags:
 categories:
 - Spring
 - SpringFramework
+- BasicKnowledge
 - Inner Bean
 ---
 

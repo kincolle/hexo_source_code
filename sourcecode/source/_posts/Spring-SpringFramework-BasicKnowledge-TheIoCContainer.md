@@ -5,6 +5,7 @@ tags:
 categories:
 - Spring
 - SpringFramework
+- BasicKnowledge
 - The IoC Container
 ---
 One of the most important part in SpringFramework is IoC. Here let's see what it is.

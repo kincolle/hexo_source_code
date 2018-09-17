@@ -1,11 +1,12 @@
 ---
-title: @Value
+title: Value
 date: 2018-08-05 22:01:48
 tags:
 categories:
 - Spring
+- SpringFramework
 - Annotation
-- @Value
+- Value
 ---
 If you have a dev.properties file, and need to inject the following tag:
 

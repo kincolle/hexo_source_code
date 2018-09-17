@@ -5,6 +5,7 @@ tags:
 categories:
 - Spring
 - SpringFramework
+- BasicKnowledge
 - Static And Instance Factory To Create Bean
 ---
 

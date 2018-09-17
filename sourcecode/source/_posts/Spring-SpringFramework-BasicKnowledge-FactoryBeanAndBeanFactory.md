@@ -5,6 +5,7 @@ tags:
 categories:
 - Spring
 - SpringFramework
+- BasicKnowledge
 - Factory Bean And Bean Factory
 ---
 ## 1. BeanFactory

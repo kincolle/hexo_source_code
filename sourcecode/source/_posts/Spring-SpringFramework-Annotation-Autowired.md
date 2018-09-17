@@ -1,11 +1,12 @@
 ---
-title: @Autowired
+title: Autowired
 date: 2018-08-05 10:01:13
 tags:
 categories:
 - Spring
+- SpringFramework
 - Annotation
-- @Autowired
+- Autowired
 ---
 ## Introduction
 @Autowired is added into spring since Spring2.5. It can set bean into member variable, function or contructor with this annotation without xml file. The @Autowired works according to bean type, so, if you want to it works with bean name you need to use @Qualifier.

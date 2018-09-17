@@ -1,11 +1,12 @@
 ---
-title: @Qualifier
+title: Qualifier
 date: 2018-08-05 16:51:19
 tags:
 categories:
 - Spring
+- SpringFramework
 - Annotation
-- @Qualifier
+- Qualifier
 ---
 ## Introduction
 @Autowired is done according to type of bean. If more than one bean with the same tyep, then BeanCreationException will happen. To solve this problem, we use @Autowired and @Qualifier together.
