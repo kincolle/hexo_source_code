@@ -29,7 +29,8 @@ First，if we have a mapping like the following:
 
 Then if we want to change the mapping like the following:
 
-	curl -XPUT localhost:8301/store/client/_mapping -d '
+	http://localhost:8301/store/client/_mapping
+
 	{
 	    "client" : {
 	        "properties" : {
@@ -42,4 +43,18 @@ Then if we want to change the mapping like the following:
 The result will be
 >{"error":"MergeMappingException[Merge failed with failures {[mapper [local_ip] of different type, current_type [long], merged_type [string]]}]","status":400}
  
-So, we can see that created mapping field can not be modified but we can create new field.
+So, we can see that created mapping field can not be modified but we can create new field Like the following:
+
+	http://localhost:8301/index/_mapping/type
+
+
+	{
+	    "properties": {
+	        "newField": {
+	            "type": "keyword",
+	            "store": true
+	        }
+	    }
+	}
+
+
