@@ -4,6 +4,7 @@ date: 2018-06-07 23:55:25
 tags:
 categories:
 - Elasticsearch
+- Master Election
 - Bully algorithm
 ---
 ## Bully algorithm
